@@ -976,39 +976,44 @@ function openBriefing(){document.getElementById('briefingModal').classList.add('
 function closeBriefing(){document.getElementById('briefingModal').classList.remove('open');document.body.style.overflow=''}
 function selectChip(el){const group=el.dataset.group;document.querySelectorAll(`.brief-chip[data-group="${group}"]`).forEach(c=>c.classList.remove('active'));el.classList.add('active')}
 function getActiveChip(group){return document.querySelector(`.brief-chip.active[data-group="${group}"]`)?.textContent||'Não informado'}
+function switchServico(tipo){
+  document.getElementById('camposSite').style.display=tipo==='site'?'':'none';
+  document.getElementById('camposAutomacao').style.display=tipo==='automacao'?'':'none';
+  document.getElementById('briefTitle').textContent=tipo==='site'?'📋 Briefing — Criação de Site':'🤖 Briefing — Automação de Atendimento';
+}
 function submitBriefing(e){
   e.preventDefault();
   const f=document.getElementById('briefingForm');
-  const payload={
-    nome:f.nome.value,
-    empresa:f.empresa.value,
-    segmento:f.segmento.value,
-    whatsapp:f.whatsapp.value,
-    pacote:getActiveChip('pacote'),
-    objetivo:getActiveChip('objetivo'),
-    dominio:getActiveChip('dominio'),
-    logo:getActiveChip('logo'),
-    referencias:f.referencias.value||'',
-    info:f.info.value||''
-  };
-  // Salva lead no Supabase via n8n (fire-and-forget)
-  fetch('https://auto-pessoal-n8n.bm46zl.easypanel.host/webhook/lead',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify(payload)
-  }).catch(()=>{});
-  // Abre WhatsApp normalmente
-  const msg=`🔔 *BRIEFING KØDE*\n\n`+
-    `*Nome:* ${payload.nome}\n`+
-    `*Empresa:* ${payload.empresa}\n`+
-    `*Segmento:* ${payload.segmento}\n`+
-    `*WhatsApp:* ${payload.whatsapp}\n\n`+
-    `*Pacote:* ${payload.pacote}\n`+
-    `*Objetivo:* ${payload.objetivo}\n`+
-    `*Domínio:* ${payload.dominio}\n`+
-    `*Logo/Visual:* ${payload.logo}\n\n`+
-    `*Referências:* ${payload.referencias||'Nenhuma'}\n`+
-    `*Informações extras:* ${payload.info||'Nenhuma'}`;
+  const servico=getActiveChip('servico');
+  const isAuto=servico.includes('Automação');
+  const base={nome:f.nome.value,empresa:f.empresa.value,segmento:f.segmento.value,whatsapp:f.whatsapp.value,servico:isAuto?'automacao':'site',info:f.info.value||''};
+  let payload,msg;
+  if(isAuto){
+    payload={...base,plano:getActiveChip('planoAuto'),canal:getActiveChip('canal'),volume:getActiveChip('volume')};
+    msg=`🤖 *BRIEFING KØDE — AUTOMAÇÃO*\n\n`+
+      `*Nome:* ${payload.nome}\n`+
+      `*Empresa:* ${payload.empresa}\n`+
+      `*Segmento:* ${payload.segmento}\n`+
+      `*WhatsApp:* ${payload.whatsapp}\n\n`+
+      `*Plano:* ${payload.plano}\n`+
+      `*Canal:* ${payload.canal}\n`+
+      `*Volume/mês:* ${payload.volume}\n\n`+
+      `*Informações extras:* ${payload.info||'Nenhuma'}`;
+  }else{
+    payload={...base,pacote:getActiveChip('pacote'),objetivo:getActiveChip('objetivo'),dominio:getActiveChip('dominio'),logo:getActiveChip('logo'),referencias:f.referencias.value||''};
+    msg=`🔔 *BRIEFING KØDE — SITE*\n\n`+
+      `*Nome:* ${payload.nome}\n`+
+      `*Empresa:* ${payload.empresa}\n`+
+      `*Segmento:* ${payload.segmento}\n`+
+      `*WhatsApp:* ${payload.whatsapp}\n\n`+
+      `*Pacote:* ${payload.pacote}\n`+
+      `*Objetivo:* ${payload.objetivo}\n`+
+      `*Domínio:* ${payload.dominio}\n`+
+      `*Logo/Visual:* ${payload.logo}\n\n`+
+      `*Referências:* ${payload.referencias||'Nenhuma'}\n`+
+      `*Informações extras:* ${payload.info||'Nenhuma'}`;
+  }
+  fetch('https://auto-pessoal-n8n.bm46zl.easypanel.host/webhook/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).catch(()=>{});
   window.open(`https://wa.me/5511945920335?text=${encodeURIComponent(msg)}`,'_blank');
   closeBriefing();
   f.reset();
@@ -1022,11 +1027,23 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click'
   <div class="briefing-modal">
     <button class="brief-close" onclick="closeBriefing()">✕</button>
     <div class="brief-header">
-      <h3>📋 Briefing do seu site</h3>
+      <h3 id="briefTitle">📋 Briefing køde</h3>
       <p>Preencha em menos de 2 minutos. Recebemos pelo WhatsApp e entramos em contato.</p>
     </div>
     <form id="briefingForm" onsubmit="submitBriefing(event)">
 
+      <!-- TIPO DE SERVIÇO -->
+      <div class="brief-group">
+        <label class="brief-label">Tipo de serviço *</label>
+        <div class="brief-chips">
+          <span class="brief-chip active" data-group="servico" onclick="selectChip(this);switchServico('site')">🌐 Criação de Site</span>
+          <span class="brief-chip" data-group="servico" onclick="selectChip(this);switchServico('automacao')">🤖 Automação de Atendimento</span>
+        </div>
+      </div>
+
+      <div class="brief-divider"></div>
+
+      <!-- CAMPOS COMUNS -->
       <div class="brief-row">
         <div class="brief-group">
           <label class="brief-label">Seu nome *</label>
@@ -1037,7 +1054,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click'
           <input class="brief-input" name="empresa" type="text" placeholder="Ex: Clínica Sorrir" required>
         </div>
       </div>
-
       <div class="brief-row">
         <div class="brief-group">
           <label class="brief-label">Segmento *</label>
@@ -1062,53 +1078,86 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click'
         </div>
       </div>
 
-      <div class="brief-group">
-        <label class="brief-label">Pacote de interesse *</label>
-        <div class="brief-chips" id="chipsPacote">
-          <span class="brief-chip" data-group="pacote" onclick="selectChip(this)">Starter — R$ 1.489</span>
-          <span class="brief-chip active" data-group="pacote" onclick="selectChip(this)">Pro — R$ 2.959</span>
-          <span class="brief-chip" data-group="pacote" onclick="selectChip(this)">Scale — sob consulta</span>
-        </div>
-      </div>
-
-      <div class="brief-group">
-        <label class="brief-label">Objetivo principal do site</label>
-        <div class="brief-chips" id="chipsObjetivo">
-          <span class="brief-chip" data-group="objetivo" onclick="selectChip(this)">Atrair clientes</span>
-          <span class="brief-chip" data-group="objetivo" onclick="selectChip(this)">Vender online</span>
-          <span class="brief-chip" data-group="objetivo" onclick="selectChip(this)">Portfólio</span>
-          <span class="brief-chip" data-group="objetivo" onclick="selectChip(this)">Institucional</span>
-          <span class="brief-chip" data-group="objetivo" onclick="selectChip(this)">Captação de leads</span>
-        </div>
-      </div>
-
-      <div class="brief-row">
+      <!-- CAMPOS SITE -->
+      <div id="camposSite">
         <div class="brief-group">
-          <label class="brief-label">Tem domínio próprio?</label>
+          <label class="brief-label">Pacote de interesse *</label>
           <div class="brief-chips">
-            <span class="brief-chip active" data-group="dominio" onclick="selectChip(this)">Não tenho</span>
-            <span class="brief-chip" data-group="dominio" onclick="selectChip(this)">Já tenho</span>
-            <span class="brief-chip" data-group="dominio" onclick="selectChip(this)">Não sei</span>
+            <span class="brief-chip" data-group="pacote" onclick="selectChip(this)">Link — R$ 797</span>
+            <span class="brief-chip" data-group="pacote" onclick="selectChip(this)">Starter — R$ 1.489</span>
+            <span class="brief-chip active" data-group="pacote" onclick="selectChip(this)">Pro — R$ 2.959</span>
+            <span class="brief-chip" data-group="pacote" onclick="selectChip(this)">Scale — sob consulta</span>
           </div>
         </div>
         <div class="brief-group">
-          <label class="brief-label">Tem logo/identidade visual?</label>
+          <label class="brief-label">Objetivo principal do site</label>
           <div class="brief-chips">
-            <span class="brief-chip active" data-group="logo" onclick="selectChip(this)">Não tenho</span>
-            <span class="brief-chip" data-group="logo" onclick="selectChip(this)">Tenho logo</span>
-            <span class="brief-chip" data-group="logo" onclick="selectChip(this)">Tenho tudo</span>
+            <span class="brief-chip" data-group="objetivo" onclick="selectChip(this)">Atrair clientes</span>
+            <span class="brief-chip" data-group="objetivo" onclick="selectChip(this)">Vender online</span>
+            <span class="brief-chip" data-group="objetivo" onclick="selectChip(this)">Portfólio</span>
+            <span class="brief-chip" data-group="objetivo" onclick="selectChip(this)">Institucional</span>
+            <span class="brief-chip" data-group="objetivo" onclick="selectChip(this)">Captação de leads</span>
+          </div>
+        </div>
+        <div class="brief-row">
+          <div class="brief-group">
+            <label class="brief-label">Tem domínio próprio?</label>
+            <div class="brief-chips">
+              <span class="brief-chip active" data-group="dominio" onclick="selectChip(this)">Não tenho</span>
+              <span class="brief-chip" data-group="dominio" onclick="selectChip(this)">Já tenho</span>
+              <span class="brief-chip" data-group="dominio" onclick="selectChip(this)">Não sei</span>
+            </div>
+          </div>
+          <div class="brief-group">
+            <label class="brief-label">Tem logo/identidade visual?</label>
+            <div class="brief-chips">
+              <span class="brief-chip active" data-group="logo" onclick="selectChip(this)">Não tenho</span>
+              <span class="brief-chip" data-group="logo" onclick="selectChip(this)">Tenho logo</span>
+              <span class="brief-chip" data-group="logo" onclick="selectChip(this)">Tenho tudo</span>
+            </div>
+          </div>
+        </div>
+        <div class="brief-group">
+          <label class="brief-label">Sites de referência (opcional)</label>
+          <input class="brief-input" name="referencias" type="text" placeholder="Ex: site.com.br, outro.com — sites que você gosta">
+        </div>
+      </div>
+
+      <!-- CAMPOS AUTOMAÇÃO -->
+      <div id="camposAutomacao" style="display:none;">
+        <div class="brief-group">
+          <label class="brief-label">Plano de interesse *</label>
+          <div class="brief-chips">
+            <span class="brief-chip" data-group="planoAuto" onclick="selectChip(this)">Starter — R$ 990 + R$ 197/mês</span>
+            <span class="brief-chip active" data-group="planoAuto" onclick="selectChip(this)">Pro — R$ 1.990 + R$ 397/mês</span>
+            <span class="brief-chip" data-group="planoAuto" onclick="selectChip(this)">Full — R$ 2.990 + R$ 597/mês</span>
+            <span class="brief-chip" data-group="planoAuto" onclick="selectChip(this)">Scale — sob consulta</span>
+          </div>
+        </div>
+        <div class="brief-group">
+          <label class="brief-label">Canais desejados</label>
+          <div class="brief-chips">
+            <span class="brief-chip active" data-group="canal" onclick="selectChip(this)">WhatsApp</span>
+            <span class="brief-chip" data-group="canal" onclick="selectChip(this)">Email</span>
+            <span class="brief-chip" data-group="canal" onclick="selectChip(this)">Instagram DM</span>
+            <span class="brief-chip" data-group="canal" onclick="selectChip(this)">Todos os canais</span>
+          </div>
+        </div>
+        <div class="brief-group">
+          <label class="brief-label">Volume estimado de atendimentos/mês</label>
+          <div class="brief-chips">
+            <span class="brief-chip active" data-group="volume" onclick="selectChip(this)">Até 500</span>
+            <span class="brief-chip" data-group="volume" onclick="selectChip(this)">500 a 2.000</span>
+            <span class="brief-chip" data-group="volume" onclick="selectChip(this)">2.000 a 5.000</span>
+            <span class="brief-chip" data-group="volume" onclick="selectChip(this)">Acima de 5.000</span>
           </div>
         </div>
       </div>
 
-      <div class="brief-group">
-        <label class="brief-label">Sites de referência (opcional)</label>
-        <input class="brief-input" name="referencias" type="text" placeholder="Ex: site.com.br, outro.com — sites que você gosta">
-      </div>
-
+      <!-- INFO ADICIONAL (comum) -->
       <div class="brief-group">
         <label class="brief-label">Informações adicionais (opcional)</label>
-        <textarea class="brief-textarea" name="info" placeholder="Cores, estilo, diferenciais do seu negócio, qualquer detalhe que ajude..."></textarea>
+        <textarea class="brief-textarea" name="info" placeholder="Descreva seu negócio, dúvidas ou qualquer detalhe que ajude..."></textarea>
       </div>
 
       <div class="brief-divider"></div>
