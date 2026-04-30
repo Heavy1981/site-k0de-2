@@ -272,6 +272,9 @@ nav.scrolled { background: rgba(2,4,8,0.92); backdrop-filter: blur(20px); border
 
 /* PACKAGES */
 .packages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 1.5rem; margin-top: 4rem; }
+.packages-grid-4 { grid-template-columns: repeat(4,1fr); }
+@media(max-width:1100px){.packages-grid-4{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:600px){.packages-grid-4{grid-template-columns:1fr;}}
 .pkg-card { position: relative; padding: 2rem; border-radius: 20px; background: rgba(255,255,255,0.03); border: 1px solid rgba(75,123,255,0.2); display: flex; flex-direction: column; transition: all 0.3s; overflow: visible; box-shadow: 0 0 24px rgba(75,123,255,0.05); }
 .pkg-card:hover { border-color: rgba(75,123,255,0.4); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(75,123,255,0.1); }
 .pkg-card.popular { border-color: rgba(75,123,255,0.5); background: rgba(75,123,255,0.05); box-shadow: 0 0 48px rgba(75,123,255,0.12); padding-top: 2.8rem; }
@@ -429,6 +432,7 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
     </a>
     <ul class="nav-links">
       <li><a href="#resultados">Resultados</a></li>
+      <li><a href="#automacoes">Automações</a></li>
       <li><a href="#pacotes">Pacotes</a></li>
       <li><a href="#como-funciona">Como Funciona</a></li>
       <li><a href="#depoimentos">Depoimentos</a></li>
@@ -542,22 +546,22 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
   </div>
 
   <div class="hero-content">
-    <div class="badge"><span class="badge-dot"></span> Startup de IA Brasileira <span class="badge-dot"></span></div>
+    <div class="badge"><span class="badge-dot"></span> Sites · Automações · IA · Bragança Paulista & Brasil <span class="badge-dot"></span></div>
     <h1>
-      <span class="l1">Seu site entregue</span>
-      <span class="l2"><span class="glitch-wrap text-gradient" data-text="em 7 dias.">em 7 dias.</span></span>
-      <span class="l3">Do jeito certo.</span>
+      <span class="l1">Seu negócio</span>
+      <span class="l2"><span class="glitch-wrap text-gradient" data-text="online e no automático.">online e no automático.</span></span>
+      <span class="l3">Em 7 dias.</span>
     </h1>
     <p class="hero-sub">
-      Sites e landing pages que vendem, para
+      Sites profissionais e automações de IA para
       <span class="typewriter-wrap"><span id="typewriter">Clínicas</span><span class="typewriter-cursor">|</span></span>
-      de <strong style="color:#fff">Bragança Paulista</strong> ao <span style="color:var(--blue);font-weight:600;font-family:'JetBrains Mono',monospace;">Brasil todo</span>.
+      — de <strong style="color:#fff">Bragança Paulista</strong> ao <span style="color:var(--blue);font-weight:600;font-family:'JetBrains Mono',monospace;">Brasil todo</span>.
     </p>
     <div class="btn-group">
       <a href="https://wa.me/5511945920335?text=Ol%C3%A1%2C%20quero%20meu%20site!" target="_blank" rel="noopener noreferrer" class="btn-primary">💬 Quero meu site agora</a>
-      <a href="#resultados" class="btn-ghost">▶ Ver Resultados</a>
+      <a href="#automacoes" class="btn-ghost">→ Ver Automações</a>
     </div>
-    <p class="hero-proof">Entrega em 7 dias &nbsp;·&nbsp; Revisões inclusas &nbsp;·&nbsp; Atendimento local</p>
+    <p class="hero-proof">Sites em 7 dias &nbsp;·&nbsp; Bots de IA 24h &nbsp;·&nbsp; Revisões inclusas</p>
     <div class="segment-pills">
       <div class="pill">🏥 Saúde</div>
       <div class="pill">⚖️ Jurídico</div>
@@ -604,14 +608,99 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
   </div>
 </section>
 
+<!-- AUTOMATIONS -->
+<section class="section" id="automacoes" style="position:relative;overflow:hidden;">
+  <div class="orb" style="width:500px;height:500px;background:rgba(0,60,200,0.04);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+  <div class="container" style="position:relative;z-index:1;text-align:center;">
+    <div class="section-badge reveal"><span class="badge-dot"></span> Automações de Atendimento</div>
+    <h2 class="section-heading reveal">Automatize seu atendimento <span class="text-gradient">com IA</span></h2>
+    <p class="section-sub reveal">Seus clientes respondidos 24h no WhatsApp, email e Instagram — sem contratar mais ninguém. Setup rápido, resultado imediato.</p>
+    <div class="packages-grid packages-grid-4" style="margin-top:3rem;">
+      <div class="pkg-card reveal">
+        <div class="pkg-name">Starter</div>
+        <div class="pkg-desc">Ideal para negócios que querem começar a automatizar o atendimento no WhatsApp.</div>
+        <div class="pkg-price">R$ 990 <span style="font-size:0.9rem;font-weight:400;color:#8899aa;">setup</span></div>
+        <div class="pkg-price-note" style="color:#4B7BFF;font-weight:600;">+ R$ 197/mês</div>
+        <ul class="pkg-features">
+          <li><span class="pkg-check">✓</span>Bot IA no WhatsApp 24h</li>
+          <li><span class="pkg-check">✓</span>Respostas automáticas com IA</li>
+          <li><span class="pkg-check">✓</span>Até 500 atendimentos/mês</li>
+          <li><span class="pkg-check">✓</span>Histórico de conversas</li>
+          <li><span class="pkg-check">✓</span>Suporte por 30 dias</li>
+        </ul>
+        <a href="https://wa.me/5511945920335?text=Quero%20o%20plano%20Starter%20de%20Automa%C3%A7%C3%A3o!" target="_blank" rel="noopener noreferrer" class="pkg-cta outline">💬 Começar agora</a>
+      </div>
+      <div class="pkg-card popular reveal">
+        <div class="popular-badge">⚡ Mais popular</div>
+        <div class="pkg-name">Pro</div>
+        <div class="pkg-desc">Para quem quer atender clientes no WhatsApp e converter leads por email no piloto automático.</div>
+        <div class="pkg-price">R$ 1.990 <span style="font-size:0.9rem;font-weight:400;color:#8899aa;">setup</span></div>
+        <div class="pkg-price-note" style="color:#4B7BFF;font-weight:600;">+ R$ 397/mês</div>
+        <ul class="pkg-features">
+          <li><span class="pkg-check">✓</span>Tudo do Starter</li>
+          <li><span class="pkg-check">✓</span>Automação de email (sequência)</li>
+          <li><span class="pkg-check">✓</span>Até 2.000 atendimentos/mês</li>
+          <li><span class="pkg-check">✓</span>Relatório mensal</li>
+          <li><span class="pkg-check">✓</span>Suporte por 60 dias</li>
+        </ul>
+        <a href="https://wa.me/5511945920335?text=Quero%20o%20plano%20Pro%20de%20Automa%C3%A7%C3%A3o!" target="_blank" rel="noopener noreferrer" class="pkg-cta primary">💬 Escolher Pro</a>
+      </div>
+      <div class="pkg-card reveal reveal-delay-1">
+        <div class="pkg-name">Full</div>
+        <div class="pkg-desc">Atendimento automatizado em todos os canais principais do seu negócio.</div>
+        <div class="pkg-price">R$ 2.990 <span style="font-size:0.9rem;font-weight:400;color:#8899aa;">setup</span></div>
+        <div class="pkg-price-note" style="color:#4B7BFF;font-weight:600;">+ R$ 597/mês</div>
+        <ul class="pkg-features">
+          <li><span class="pkg-check">✓</span>Tudo do Pro</li>
+          <li><span class="pkg-check">✓</span>Instagram DM automático</li>
+          <li><span class="pkg-check">✓</span>Até 5.000 atendimentos/mês</li>
+          <li><span class="pkg-check">✓</span>Dashboard de métricas</li>
+          <li><span class="pkg-check">✓</span>Suporte mensal incluso</li>
+        </ul>
+        <a href="https://wa.me/5511945920335?text=Quero%20o%20plano%20Full%20de%20Automa%C3%A7%C3%A3o!" target="_blank" rel="noopener noreferrer" class="pkg-cta outline">💬 Escolher Full</a>
+      </div>
+      <div class="pkg-card reveal reveal-delay-2">
+        <div class="pkg-name">Scale</div>
+        <div class="pkg-desc">Solução completa e personalizada para empresas com alto volume e necessidades específicas.</div>
+        <div class="pkg-price">Sob consulta</div>
+        <div class="pkg-price-note">projeto personalizado</div>
+        <ul class="pkg-features">
+          <li><span class="pkg-check">✓</span>Todos os canais</li>
+          <li><span class="pkg-check">✓</span>Integrações customizadas</li>
+          <li><span class="pkg-check">✓</span>Atendimentos ilimitados</li>
+          <li><span class="pkg-check">✓</span>Suporte dedicado</li>
+          <li><span class="pkg-check">✓</span>Treinamento da equipe</li>
+        </ul>
+        <a href="https://wa.me/5511945920335?text=Quero%20o%20plano%20Scale%20de%20Automa%C3%A7%C3%A3o!" target="_blank" rel="noopener noreferrer" class="pkg-cta outline">💬 Falar com especialista</a>
+      </div>
+    </div>
+    <p class="reveal" style="margin-top:1.5rem;color:#445566;font-size:0.82rem;">Não sabe qual escolher? <a href="https://wa.me/5511945920335" target="_blank" rel="noopener noreferrer" style="color:var(--blue);">Fale com a gente no WhatsApp</a> e te ajudamos a decidir.</p>
+  </div>
+</section>
+
 <!-- PACKAGES -->
 <section class="section" id="pacotes" style="position:relative;overflow:hidden;">
   <div class="orb" style="width:500px;height:500px;background:rgba(0,80,255,0.04);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
   <div class="container" style="position:relative;z-index:1;text-align:center;">
-    <div class="section-badge reveal"><span class="badge-dot"></span> Pacotes</div>
-    <h2 class="section-heading reveal">Escolha o plano <span class="text-gradient">ideal para você</span></h2>
+    <div class="section-badge reveal"><span class="badge-dot"></span> Sites & Landing Pages</div>
+    <h2 class="section-heading reveal">Escolha seu pacote de <span class="text-gradient">site profissional</span></h2>
     <p class="section-sub reveal">Preços transparentes, sem surpresas. Entrega garantida dentro do prazo.</p>
-    <div class="packages-grid">
+    <div class="packages-grid packages-grid-4">
+      <div class="pkg-card reveal">
+        <div class="pkg-name">Link</div>
+        <div class="pkg-desc">Sua presença digital completa em uma página: Instagram, WhatsApp, LinkedIn e muito mais.</div>
+        <div class="pkg-price">R$ 797</div>
+        <div class="pkg-price-note">pagamento único</div>
+        <ul class="pkg-features">
+          <li><span class="pkg-check">✓</span>Mini site com bio + foto + links</li>
+          <li><span class="pkg-check">✓</span>Integração Instagram e WhatsApp</li>
+          <li><span class="pkg-check">✓</span>Links para LinkedIn e outras redes</li>
+          <li><span class="pkg-check">✓</span>QR Code personalizado</li>
+          <li><span class="pkg-check">✓</span>Design com sua identidade visual</li>
+          <li><span class="pkg-check">✓</span>Entrega em 3 dias úteis</li>
+        </ul>
+        <a href="https://wa.me/5511945920335?text=Quero%20o%20pacote%20Link!" target="_blank" rel="noopener noreferrer" class="pkg-cta outline">💬 Começar agora</a>
+      </div>
       <div class="pkg-card reveal reveal-delay-1">
         <div class="pkg-name">Starter</div>
         <div class="pkg-desc">Ideal para quem precisa de presença online rápida e profissional.</div>
