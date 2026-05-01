@@ -359,6 +359,15 @@ nav.scrolled { background: rgba(2,4,8,0.92); backdrop-filter: blur(20px); border
 .cta-feats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 0.7rem; margin-top: 3rem; max-width: 720px; margin-left: auto; margin-right: auto; }
 .cta-feat { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 14px; border-radius: 11px; border: 1px solid rgba(255,255,255,0.06); background: rgba(10,22,40,0.5); color: #b8c8d8; font-size: 0.82rem; font-weight: 500; }
 .cta-arrow { color: var(--blue); }
+.cta-dual { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 900px; margin: 0 auto; }
+@media (max-width: 700px) { .cta-dual { grid-template-columns: 1fr; } }
+.cta-card { border-radius: 20px; padding: 2.5rem 2rem; border: 1px solid rgba(255,255,255,0.08); background: rgba(10,22,40,0.6); backdrop-filter: blur(12px); display: flex; flex-direction: column; align-items: center; text-align: center; }
+.cta-card.highlight { border-color: rgba(75,123,255,0.35); background: rgba(75,123,255,0.06); box-shadow: 0 0 40px rgba(75,123,255,0.08); }
+.cta-card .cta-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+.cta-card .cta-h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 900; color: #fff; line-height: 1.2; margin-bottom: 0.75rem; }
+.cta-card .cta-desc { color: #8899aa; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem; flex: 1; }
+.cta-card .cta-feats-sm { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-bottom: 1.75rem; }
+.cta-card .cta-feat-sm { font-size: 0.75rem; color: #b8c8d8; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 4px 10px; }
 
 /* FOOTER */
 footer { background: var(--dark-950); border-top: 1px solid rgba(255,255,255,0.05); padding: 4.5rem 0 2rem; }
@@ -840,19 +849,44 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
   <div class="orb cta-orb"></div>
   <div class="bg-grid" style="position:absolute;inset:0;opacity:0.4;pointer-events:none;"></div>
   <div class="container" style="position:relative;z-index:1;">
-    <div class="cta-badge reveal"><span class="badge-dot"></span> Pronto para ter seu site?</div>
-    <h2 class="cta-h2 reveal">Seu site pronto em 7 dias.<br><span class="text-gradient">Garantido.</span></h2>
-    <p class="cta-sub reveal">Fale com a gente agora e receba um orçamento em minutos. Sem enrolação, sem contrato longo — só seu site no ar do jeito que precisa ser.</p>
-    <div class="btn-group reveal">
-      <a href="https://wa.me/5511945920335?text=Ol%C3%A1%2C%20quero%20meu%20site!" target="_blank" rel="noopener noreferrer" class="btn-primary">💬 Quero meu site agora</a>
+    <div class="cta-badge reveal"><span class="badge-dot"></span> Pronto para começar?</div>
+    <h2 class="cta-h2 reveal" style="margin-bottom:3rem;">Escolha como a køde pode<br><span class="text-gradient">transformar seu negócio.</span></h2>
+
+    <div class="cta-dual reveal">
+
+      <!-- Card Sites -->
+      <div class="cta-card highlight">
+        <div class="cta-icon">🌐</div>
+        <div class="cta-h3">Site profissional<br>em 7 dias.</div>
+        <p class="cta-desc">Presença digital completa com design premium, SEO e mobile-first. Entrega garantida no prazo.</p>
+        <div class="cta-feats-sm">
+          <span class="cta-feat-sm">→ Entrega em 7 dias</span>
+          <span class="cta-feat-sm">→ 2 revisões inclusas</span>
+          <span class="cta-feat-sm">→ Mobile-first</span>
+          <span class="cta-feat-sm">→ Suporte pós-entrega</span>
+        </div>
+        <a href="https://wa.me/5511945920335?text=Ol%C3%A1%2C%20quero%20meu%20site!" target="_blank" rel="noopener noreferrer" class="btn-primary">💬 Quero meu site agora</a>
+        <p class="cta-proof" style="margin-top:0.75rem;">A partir de R$ 797 · Sem contrato longo</p>
+      </div>
+
+      <!-- Card Automações -->
+      <div class="cta-card">
+        <div class="cta-icon">🤖</div>
+        <div class="cta-h3">Atendimento<br>automatizado com IA.</div>
+        <p class="cta-desc">Bot de IA no WhatsApp, email e Instagram respondendo clientes 24h. Você vende enquanto dorme.</p>
+        <div class="cta-feats-sm">
+          <span class="cta-feat-sm">→ Ativo 24h/7 dias</span>
+          <span class="cta-feat-sm">→ WhatsApp + Email + IG</span>
+          <span class="cta-feat-sm">→ Integração com IA</span>
+          <span class="cta-feat-sm">→ Relatórios mensais</span>
+        </div>
+        <a href="https://wa.me/5511945920335?text=Ol%C3%A1%2C%20quero%20automatizar%20meu%20atendimento!" target="_blank" rel="noopener noreferrer" class="btn-primary">🤖 Quero automatizar agora</a>
+        <p class="cta-proof" style="margin-top:0.75rem;">Setup + mensalidade · Sem fidelidade</p>
+      </div>
+
     </div>
-    <p class="cta-proof reveal">Sem compromisso · Orçamento em minutos · Resposta em até 2 horas</p>
-    <div class="cta-feats reveal">
-      <div class="cta-feat"><span class="cta-arrow">→</span> Entrega em 7 dias</div>
-      <div class="cta-feat"><span class="cta-arrow">→</span> 2 revisões inclusas</div>
-      <div class="cta-feat"><span class="cta-arrow">→</span> Suporte pós-entrega</div>
-      <div class="cta-feat"><span class="cta-arrow">→</span> Mobile-first</div>
-    </div>
+
+    <p class="cta-proof reveal" style="margin-top:2.5rem;">Sem compromisso · Orçamento em minutos · Resposta em até 2 horas</p>
   </div>
 </section>
 
