@@ -434,8 +434,32 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
   .pill{padding:11px 16px}
   .pkg-cta{padding:15px}
   .section{padding:4rem 0}
+  /* WhatsApp float menor para não bloquear conteúdo */
+  #waFloat{width:48px;height:48px;right:12px;bottom:14px}
+  #waFloat svg{width:22px;height:22px}
+  /* Stats 2 colunas no mobile */
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  /* Badge hero menor */
+  .badge{font-size:0.58rem;letter-spacing:2px;padding:6px 10px}
+  /* Sections com padding lateral seguro */
+  .container{padding-left:1.25rem;padding-right:1.25rem}
+  /* Testimonials coluna única */
+  .testimonials-grid{grid-template-columns:1fr}
+  /* Steps coluna única */
+  .steps{grid-template-columns:1fr}
 }
-@media(max-width:480px){.footer-grid{grid-template-columns:1fr}.cta-feats{grid-template-columns:1fr 1fr}.packages-grid{grid-template-columns:1fr}}
+@media(max-width:480px){
+  .footer-grid{grid-template-columns:1fr}
+  .cta-feats{grid-template-columns:1fr 1fr}
+  .packages-grid{grid-template-columns:1fr}
+  /* Newsletter input/btn empilhados */
+  .newsletter-form{flex-direction:column}
+  .newsletter-btn{width:100%}
+  /* Stats mantém 2 colunas no 480 */
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:0.75rem}
+  /* CTA dual coluna única */
+  .cta-dual{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
