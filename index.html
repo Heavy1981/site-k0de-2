@@ -348,6 +348,10 @@ nav.scrolled { background: rgba(2,4,8,0.92); backdrop-filter: blur(20px); border
 .faq-answer { color: #8899aa; font-size: 0.88rem; line-height: 1.8; padding-bottom: 1.25rem; padding-right: 3rem; display: none; }
 .faq-answer.open { display: block; }
 .faq-top-line { height: 1px; background: rgba(255,255,255,0.06); }
+.faq-tabs { display: flex; gap: 0.5rem; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap; }
+.faq-tab { font-size: 0.82rem; font-family: 'Space Grotesk', sans-serif; font-weight: 600; padding: 6px 16px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); color: #8899aa; cursor: pointer; transition: all 0.2s; }
+.faq-tab:hover { border-color: rgba(75,123,255,0.3); color: #b8c8d8; }
+.faq-tab.active { border-color: rgba(75,123,255,0.5); background: rgba(75,123,255,0.12); color: var(--blue); }
 
 /* CTA */
 .cta-section { padding: 7rem 0; position: relative; overflow: hidden; text-align: center; }
@@ -870,14 +874,27 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
     <div class="section-badge reveal"><span class="badge-dot"></span> Dúvidas Frequentes</div>
     <h2 class="section-heading reveal">Perguntas que a gente <span class="text-gradient">sempre responde</span></h2>
     <p class="section-sub reveal">Transparência é tudo. Aqui estão as respostas para as dúvidas mais comuns.</p>
+    <div class="faq-tabs reveal">
+      <button class="faq-tab active" onclick="filterFaq('todos',this)">Todos</button>
+      <button class="faq-tab" onclick="filterFaq('site',this)">🌐 Sites</button>
+      <button class="faq-tab" onclick="filterFaq('auto',this)">🤖 Automações</button>
+    </div>
     <div class="faq-list reveal">
       <div class="faq-top-line"></div>
-      <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-question">Qual o prazo de entrega?</span><span class="faq-icon">+</span></button><div class="faq-answer">Starter: 5 dias úteis. Pro: 7 dias úteis. Scale: até 15 dias úteis. Tudo contado a partir da aprovação do briefing.</div></div>
-      <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-question">Quantas revisões estão inclusas?</span><span class="faq-icon">+</span></button><div class="faq-answer">Starter: 1 rodada de revisão. Pro: 2 rodadas. Scale: revisões ilimitadas até sua total aprovação.</div></div>
-      <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-question">Preciso ter domínio e hospedagem?</span><span class="faq-icon">+</span></button><div class="faq-answer">Não! Cuidamos de tudo. O domínio (.com.br) e a hospedagem no primeiro ano estão inclusos nos pacotes Pro e Scale.</div></div>
-      <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-question">Como funciona o pagamento?</span><span class="faq-icon">+</span></button><div class="faq-answer">50% na aprovação do briefing e 50% na entrega do site. Aceitamos Pix, cartão de crédito e boleto.</div></div>
-      <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-question">Vocês fazem manutenção depois?</span><span class="faq-icon">+</span></button><div class="faq-answer">Sim! Temos planos de manutenção mensal a partir de R$ 299/mês. Atualizações de texto, imagens e pequenos ajustes inclusos.</div></div>
-      <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-question">Atendem todo o Brasil?</span><span class="faq-icon">+</span></button><div class="faq-answer">Sim! Somos de Bragança Paulista/SP mas atendemos clientes em todo o Brasil de forma 100% remota, com a mesma qualidade e agilidade.</div></div>
+      <!-- Sites -->
+      <div class="faq-item" data-cat="site"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-question">Qual o prazo de entrega do site?</span><span class="faq-icon">+</span></button><div class="faq-answer">Starter: 5 dias úteis. Pro: 7 dias úteis. Scale: até 15 dias úteis. Contagem começa após aprovação do briefing.</div></div>
+      <div class="faq-item" data-cat="site"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-question">Quantas revisões estão inclusas?</span><span class="faq-icon">+</span></button><div class="faq-answer">Starter: 1 rodada de revisão. Pro: 2 rodadas. Scale: revisões ilimitadas até sua total aprovação.</div></div>
+      <div class="faq-item" data-cat="site"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-question">Preciso ter domínio e hospedagem?</span><span class="faq-icon">+</span></button><div class="faq-answer">Não! Cuidamos de tudo. O domínio (.com.br) e hospedagem no primeiro ano estão inclusos nos pacotes Pro e Scale.</div></div>
+      <div class="faq-item" data-cat="site"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-question">Vocês fazem manutenção depois da entrega?</span><span class="faq-icon">+</span></button><div class="faq-answer">Sim! Temos planos de manutenção mensal a partir de R$ 299/mês. Atualizações de texto, imagens e pequenos ajustes inclusos.</div></div>
+      <!-- Automações -->
+      <div class="faq-item" data-cat="auto"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-question">Quanto tempo leva para configurar a automação?</span><span class="faq-icon">+</span></button><div class="faq-answer">Em média 3 a 5 dias úteis após a aprovação do briefing. Configuramos, testamos e entregamos pronto para uso no seu canal.</div></div>
+      <div class="faq-item" data-cat="auto"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-question">Preciso de conta no WhatsApp Business?</span><span class="faq-icon">+</span></button><div class="faq-answer">Sim, é necessário ter uma conta WhatsApp Business ativa. Se ainda não tiver, te ajudamos a configurar sem custo adicional.</div></div>
+      <div class="faq-item" data-cat="auto"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-question">A IA responde sozinha ou precisa de aprovação?</span><span class="faq-icon">+</span></button><div class="faq-answer">Você escolhe! Pode responder automaticamente 24h ou usar modo híbrido: IA qualifica o lead e notifica você para fechar a venda.</div></div>
+      <div class="faq-item" data-cat="auto"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-question">Como funciona o pagamento da mensalidade?</span><span class="faq-icon">+</span></button><div class="faq-answer">Setup único no início + mensalidade recorrente via Pix ou cartão. Sem fidelidade — você pode cancelar a qualquer momento com 30 dias de aviso.</div></div>
+      <div class="faq-item" data-cat="auto"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-question">A automação funciona com meu CRM atual?</span><span class="faq-icon">+</span></button><div class="faq-answer">Integramos com os principais CRMs (HubSpot, RD Station, Pipedrive). Caso use outro sistema, avaliamos a integração no briefing.</div></div>
+      <!-- Ambos -->
+      <div class="faq-item" data-cat="todos"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-question">Como funciona o pagamento?</span><span class="faq-icon">+</span></button><div class="faq-answer">Para sites: 50% na aprovação do briefing e 50% na entrega. Para automações: setup + mensalidade recorrente. Aceitamos Pix, cartão de crédito e boleto.</div></div>
+      <div class="faq-item" data-cat="todos"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-question">Atendem todo o Brasil?</span><span class="faq-icon">+</span></button><div class="faq-answer">Sim! Somos de Bragança Paulista/SP mas atendemos clientes em todo o Brasil de forma 100% remota, com a mesma qualidade e agilidade.</div></div>
     </div>
   </div>
 </section>
@@ -1040,6 +1057,7 @@ document.querySelectorAll('.stat-value[data-target]').forEach(el=>cObs.observe(e
 
 // FAQ
 function toggleFaq(btn){const answer=btn.nextElementSibling,isOpen=btn.classList.contains('open');document.querySelectorAll('.faq-btn.open').forEach(b=>{b.classList.remove('open');b.querySelector('.faq-icon').textContent='+';b.nextElementSibling.classList.remove('open')});if(!isOpen){btn.classList.add('open');btn.querySelector('.faq-icon').textContent='−';answer.classList.add('open')}}
+function filterFaq(cat,tab){document.querySelectorAll('.faq-tab').forEach(t=>t.classList.remove('active'));tab.classList.add('active');document.querySelectorAll('.faq-item').forEach(item=>{const c=item.dataset.cat;item.style.display=(cat==='todos'||c===cat||c==='todos')?'':'none';const btn=item.querySelector('.faq-btn');if(btn.classList.contains('open')){btn.classList.remove('open');btn.querySelector('.faq-icon').textContent='+';btn.nextElementSibling.classList.remove('open');}});}
 
 // PARTICLE NETWORK
 ;(function(){
