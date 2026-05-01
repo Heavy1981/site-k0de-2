@@ -437,8 +437,8 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
   /* WhatsApp float menor para não bloquear conteúdo */
   #waFloat{width:48px;height:48px;right:12px;bottom:14px}
   #waFloat svg{width:22px;height:22px}
-  /* Stats 2 colunas no mobile */
-  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  /* Stats 1 coluna em mobile pequeno (2col só para tablet via min-width abaixo) */
+  .stats-grid{grid-template-columns:1fr}
   /* Badge hero menor */
   .badge{font-size:0.58rem;letter-spacing:2px;padding:6px 10px}
   /* Sections com padding lateral seguro */
@@ -452,13 +452,13 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
   .footer-grid{grid-template-columns:1fr}
   .cta-feats{grid-template-columns:1fr 1fr}
   .packages-grid{grid-template-columns:1fr}
-  /* Newsletter input/btn empilhados */
   .newsletter-form{flex-direction:column}
   .newsletter-btn{width:100%}
-  /* Stats mantém 2 colunas no 480 */
-  .stats-grid{grid-template-columns:repeat(2,1fr);gap:0.75rem}
-  /* CTA dual coluna única */
   .cta-dual{grid-template-columns:1fr}
+}
+/* Stats 2 colunas apenas em tablet onde os cards têm espaço suficiente */
+@media(min-width:500px) and (max-width:768px){
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
