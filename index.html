@@ -368,6 +368,20 @@ nav.scrolled { background: rgba(2,4,8,0.92); backdrop-filter: blur(20px); border
 .cta-card .cta-desc { color: #8899aa; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem; flex: 1; }
 .cta-card .cta-feats-sm { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-bottom: 1.75rem; }
 .cta-card .cta-feat-sm { font-size: 0.75rem; color: #b8c8d8; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 4px 10px; }
+/* NEWSLETTER */
+.newsletter-section { padding: 4rem 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
+.newsletter-inner { max-width: 520px; margin: 0 auto; }
+.newsletter-label { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: var(--blue); margin-bottom: 0.75rem; }
+.newsletter-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
+.newsletter-sub { color: #8899aa; font-size: 0.85rem; margin-bottom: 1.75rem; }
+.newsletter-form { display: flex; gap: 0.5rem; max-width: 420px; margin: 0 auto; }
+.newsletter-input { flex: 1; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 0.7rem 1rem; color: #fff; font-size: 0.9rem; outline: none; transition: border-color 0.2s; }
+.newsletter-input::placeholder { color: #556677; }
+.newsletter-input:focus { border-color: rgba(75,123,255,0.45); }
+.newsletter-btn { background: var(--blue); color: #fff; border: none; border-radius: 10px; padding: 0.7rem 1.25rem; font-size: 0.85rem; font-weight: 700; cursor: pointer; white-space: nowrap; transition: opacity 0.2s; }
+.newsletter-btn:hover { opacity: 0.85; }
+.newsletter-note { margin-top: 0.75rem; font-size: 0.75rem; color: #334455; }
+@media (max-width: 480px) { .newsletter-form { flex-direction: column; } .newsletter-btn { width: 100%; } }
 
 /* FOOTER */
 footer { background: var(--dark-950); border-top: 1px solid rgba(255,255,255,0.05); padding: 4.5rem 0 2rem; }
@@ -890,6 +904,22 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
   </div>
 </section>
 
+<!-- NEWSLETTER -->
+<section class="newsletter-section">
+  <div class="container">
+    <div class="newsletter-inner reveal">
+      <div class="newsletter-label">Newsletter køde</div>
+      <h3 class="newsletter-title">Dicas de tecnologia e IA<br>direto no seu email.</h3>
+      <p class="newsletter-sub">Conteúdo sobre automações, sites e tendências digitais para negócios. Sem spam.</p>
+      <form class="newsletter-form" onsubmit="submitNewsletter(event)">
+        <input class="newsletter-input" type="email" placeholder="seu@email.com" required id="nlEmail">
+        <button class="newsletter-btn" type="submit">Quero receber</button>
+      </form>
+      <p class="newsletter-note" id="nlMsg"></p>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="container">
@@ -1051,6 +1081,21 @@ function submitBriefing(e){
   window.open(`https://wa.me/5511945920335?text=${encodeURIComponent(msg)}`,'_blank');
   closeBriefing();
   f.reset();
+}
+
+// NEWSLETTER
+function submitNewsletter(e){
+  e.preventDefault();
+  const email=document.getElementById('nlEmail').value;
+  const msg=document.getElementById('nlMsg');
+  fetch('https://auto-pessoal-n8n.bm46zl.easypanel.host/webhook/lead',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({tipo:'newsletter',email})
+  }).catch(()=>{});
+  msg.textContent='✓ Inscrito! Você receberá nossos conteúdos em breve.';
+  msg.style.color='#4b7bff';
+  e.target.reset();
 }
 
 // SMOOTH SCROLL
