@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Blog køde</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a1628'/%3E%3Ctext x='3.5' y='22.5' font-family='Space Grotesk,sans-serif' font-weight='800' font-size='16' fill='%23ffffff'%3Ek%3C/text%3E%3Ctext x='12.5' y='22.5' font-family='Space Grotesk,sans-serif' font-weight='800' font-size='16' fill='%234B7BFF'%3E%C3%B8%3C/text%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#4B7BFF;--dark:#020408;--dark-900:#060d14;--dark-800:#0a1628;--text:#f0f4f8;--muted:#8899aa}
+html{scroll-behavior:smooth}
+body{background:var(--dark);color:var(--text);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::-webkit-scrollbar{width:5px;background:var(--dark-900)}
+::-webkit-scrollbar-thumb{background:rgba(75,123,255,.3);border-radius:3px}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(6,13,20,.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06);padding:0 1.5rem}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{font-family:'Space Grotesk',sans-serif;font-weight:900;font-size:1.4rem;text-decoration:none;color:var(--text)}
+.nav-logo span{color:var(--blue)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+
+.back-link{display:inline-flex;align-items:center;gap:.5rem;color:var(--muted);text-decoration:none;font-size:.875rem;padding:2rem 1.5rem 0;max-width:800px;margin:0 auto;display:block}
+.back-link:hover{color:var(--blue)}
+
+article{max-width:720px;margin:0 auto;padding:2rem 1.5rem 5rem}
+
+.post-tag{font-family:'JetBrains Mono',monospace;font-size:.65rem;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;color:var(--blue);background:rgba(75,123,255,.1);border:1px solid rgba(75,123,255,.2);border-radius:8px;padding:2px 8px;display:inline-block;margin-bottom:1rem}
+.post-title{font-family:'Space Grotesk',sans-serif;font-weight:900;font-size:clamp(1.75rem,4vw,2.5rem);line-height:1.15;color:var(--text);margin-bottom:1rem}
+.post-meta{display:flex;gap:1.25rem;align-items:center;color:var(--muted);font-size:.875rem;margin-bottom:2rem;flex-wrap:wrap}
+.post-cover{width:100%;border-radius:16px;margin-bottom:2.5rem;max-height:480px;object-fit:cover}
+
+.post-content{color:#c8d8e8;font-size:1.05rem;line-height:1.85}
+.post-content h2{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:1.5rem;color:var(--text);margin:2.5rem 0 1rem}
+.post-content h3{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.2rem;color:var(--text);margin:2rem 0 .75rem}
+.post-content p{margin-bottom:1.25rem}
+.post-content ul,.post-content ol{padding-left:1.5rem;margin-bottom:1.25rem}
+.post-content li{margin-bottom:.5rem;color:#c8d8e8}
+.post-content blockquote{border-left:3px solid var(--blue);background:rgba(75,123,255,.05);border-radius:0 8px 8px 0;padding:1rem 1.5rem;margin:1.5rem 0;color:var(--muted);font-style:italic}
+.post-content code{font-family:'JetBrains Mono',monospace;background:rgba(75,123,255,.08);border:1px solid rgba(75,123,255,.15);border-radius:4px;padding:1px 6px;font-size:.9em;color:#a8c4ff}
+.post-content pre{font-family:'JetBrains Mono',monospace;background:rgba(75,123,255,.08);border:1px solid rgba(75,123,255,.15);border-radius:12px;padding:1.25rem;overflow-x:auto;margin:1.5rem 0;color:#a8c4ff}
+.post-content pre code{background:none;border:none;padding:0}
+.post-content a{color:var(--blue);text-decoration:none}
+.post-content a:hover{text-decoration:underline}
+.post-content img{max-width:100%;border-radius:10px;margin:1rem 0}
+.post-content strong{color:var(--text)}
+
+.post-footer{margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:gap}
+.post-footer a{color:var(--muted);text-decoration:none;font-size:.875rem}
+.post-footer a:hover{color:var(--blue)}
+
+footer{background:var(--dark-900);border-top:1px solid rgba(255,255,255,.05);padding:2rem 1.5rem;text-align:center;color:var(--muted);font-size:.875rem}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover{color:var(--blue)}
+
+.loading{display:flex;align-items:center;justify-content:center;min-height:50vh;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">k<span>ø</span>de</a>
+    <ul class="nav-links">
+      <li><a href="/#servicos">Serviços</a></li>
+      <li><a href="/#automacoes">Automações</a></li>
+      <li><a href="/#precos">Preços</a></li>
+      <li><a href="/blog" class="active">Blog</a></li>
+      <li><a href="/#contato">Contato</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div id="app"><div class="loading">Carregando artigo...</div></div>
+
+<footer>
+  <p>© 2025 <a href="/">køde</a> — IA, Automação e Presença Digital</p>
+</footer>
+
+<script>
+function formatDate(iso) {
+  if (!iso) return ''
+  return new Date(iso).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })
+}
+
+function readingTime(content) {
+  if (!content) return '1 min'
+  const words = content.replace(/<[^>]+>/g, '').split(/\s+/).length
+  return Math.max(1, Math.ceil(words / 200)) + ' min'
+}
+
+async function loadPost() {
+  const slug = location.pathname.split('/').filter(Boolean).pop()
+  if (!slug) { location.href = '/blog'; return }
+
+  try {
+    const res = await fetch(`/api/blog/posts?slug=${encodeURIComponent(slug)}`)
+    const post = await res.json()
+
+    if (!post || !post.id) {
+      document.getElementById('app').innerHTML = `
+        <div style="text-align:center;padding:5rem 1rem;color:var(--muted)">
+          <h2 style="font-family:'Space Grotesk',sans-serif;color:var(--text);margin-bottom:1rem">Post não encontrado</h2>
+          <a href="/blog" style="color:var(--blue)">← Voltar ao blog</a>
+        </div>`
+      return
+    }
+
+    document.title = `${post.title} — Blog køde`
+    document.getElementById('app').innerHTML = `
+      <a class="back-link" href="/blog">← Voltar ao blog</a>
+      <article>
+        ${post.tag ? `<span class="post-tag">${post.tag}</span>` : ''}
+        <h1 class="post-title">${post.title}</h1>
+        <div class="post-meta">
+          <span>${formatDate(post.published_at)}</span>
+          <span>·</span>
+          <span>${readingTime(post.content)} de leitura</span>
+        </div>
+        ${post.cover_url ? `<img class="post-cover" src="${post.cover_url}" alt="${post.title}"/>` : ''}
+        <div class="post-content">${post.content || ''}</div>
+        <div class="post-footer">
+          <a href="/blog">← Todos os artigos</a>
+          <a href="/">køde.com.br</a>
+        </div>
+      </article>`
+  } catch (e) {
+    document.getElementById('app').innerHTML = `
+      <div style="text-align:center;padding:5rem 1rem;color:var(--muted)">
+        <h2 style="font-family:'Space Grotesk',sans-serif;color:var(--text);margin-bottom:1rem">Erro ao carregar</h2>
+        <a href="/blog" style="color:var(--blue)">← Voltar ao blog</a>
+      </div>`
+  }
+}
+
+loadPost()
+</script>
+</body>
+</html>

@@ -35,3 +35,5 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+n8n/workflow-whatsapp-ai.json
+n8n/workflow-lead-capture.json
