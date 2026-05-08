@@ -11,7 +11,14 @@ module.exports = async (req, res) => {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
 
   const auth = req.headers['authorization'] || ''
-  if (auth !== `Bearer ${ADMIN_TOKEN}`) {
+  const cookies = Object.fromEntries(
+    (req.headers.cookie || '').split(';').map(c => {
+      const [k, ...v] = c.trim().split('=')
+      return [k, v.join('=')]
+    })
+  )
+  const cookie = cookies['blog_admin'] || ''
+  if (auth !== `Bearer ${ADMIN_TOKEN}` && cookie !== ADMIN_TOKEN) {
     return res.status(401).json({ error: 'Unauthorized' })
   }
 

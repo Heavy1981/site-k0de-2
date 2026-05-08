@@ -42,10 +42,10 @@ input[type=password]:focus{outline:none;border-color:var(--blue);box-shadow:0 0 
 </div>
 
 <script>
-// Redirect if already logged in
-if (sessionStorage.getItem('blog_token')) {
-  location.href = '/blog/admin/dashboard'
-}
+// Redirect if already logged in via cookie
+fetch('/api/admin/verify', { credentials: 'same-origin' })
+  .then(r => { if (r.ok) location.href = '/blog/admin/dashboard' })
+  .catch(() => {})
 
 async function doLogin(e) {
   e.preventDefault()
@@ -62,13 +62,13 @@ async function doLogin(e) {
   try {
     const res = await fetch('/api/admin/auth', {
       method: 'POST',
+      credentials: 'same-origin',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ password: pwd }),
     })
     const data = await res.json()
 
     if (res.ok && data.ok) {
-      sessionStorage.setItem('blog_token', data.token)
       location.href = '/blog/admin/dashboard'
     } else {
       err.textContent = data.error || 'Senha incorreta'

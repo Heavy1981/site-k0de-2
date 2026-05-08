@@ -151,23 +151,28 @@ select option{background:var(--dark-800)}
 <div class="toast" id="toast"></div>
 
 <script>
-const token = sessionStorage.getItem('blog_token')
-if (!token) location.href = '/blog/admin'
-
-// Check if editing existing post
-const params = new URLSearchParams(location.search)
-const editId = params.get('id')
 let coverUrlValue = ''
 let uploadingImage = false
 
-if (editId) {
-  document.querySelector('.header-inner .logo small').textContent = 'Editar'
-  loadPost(editId)
-}
+// Verify server-side cookie before showing content
+document.body.style.visibility = 'hidden'
+fetch('/api/admin/verify', { credentials: 'same-origin' })
+  .then(r => {
+    if (!r.ok) { location.href = '/blog/admin'; return }
+    document.body.style.visibility = 'visible'
+    if (editId) {
+      document.querySelector('.header-inner .logo small').textContent = 'Editar'
+      loadPost(editId)
+    }
+  })
+  .catch(() => location.href = '/blog/admin')
+
+const params = new URLSearchParams(location.search)
+const editId = params.get('id')
 
 async function loadPost(id) {
   try {
-    const res = await fetch(`/api/blog/posts?all=1`, { headers: { 'Authorization': `Bearer ${token}` } })
+    const res = await fetch(`/api/blog/posts?all=1`, { credentials: 'same-origin' })
     const posts = await res.json()
     const post = Array.isArray(posts) ? posts.find(p => p.id === id) : null
     if (!post) { showToast('Post não encontrado', 'error'); return }
@@ -261,7 +266,8 @@ async function handleImage(e) {
     try {
       const res = await fetch('/api/blog/upload', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ filename: file.name, contentType: file.type, base64 }),
       })
       const data = await res.json()
@@ -307,13 +313,15 @@ async function save(status) {
     if (editId) {
       res = await fetch(`/api/blog/posts?id=${editId}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       })
     } else {
       res = await fetch('/api/blog/posts', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       })
     }

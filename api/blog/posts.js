@@ -11,9 +11,20 @@ function supabaseHeaders() {
   }
 }
 
+function getCookie(req, name) {
+  const cookies = Object.fromEntries(
+    (req.headers.cookie || '').split(';').map(c => {
+      const [k, ...v] = c.trim().split('=')
+      return [k, v.join('=')]
+    })
+  )
+  return cookies[name] || ''
+}
+
 function isAuthorized(req) {
   const auth = req.headers['authorization'] || ''
-  return auth === `Bearer ${ADMIN_TOKEN}`
+  const cookie = getCookie(req, 'blog_admin')
+  return auth === `Bearer ${ADMIN_TOKEN}` || cookie === ADMIN_TOKEN
 }
 
 module.exports = async (req, res) => {
