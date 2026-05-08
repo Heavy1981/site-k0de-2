@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <radialGradient id="bg" cx="40%" cy="35%" r="70%">
+      <stop offset="0%" stop-color="#1a1f2e"/>
+      <stop offset="100%" stop-color="#0d1117"/>
+    </radialGradient>
+  </defs>
+  <rect width="32" height="32" rx="7" fill="url(#bg)"/>
+  <rect width="32" height="32" rx="7" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+  <text x="3.5" y="22.5" font-family="'Space Grotesk','Segoe UI',system-ui,sans-serif" font-weight="800" font-size="16" letter-spacing="-0.5" fill="#ffffff">k</text>
+  <text x="12.5" y="22.5" font-family="'Space Grotesk','Segoe UI',system-ui,sans-serif" font-weight="800" font-size="16" letter-spacing="-0.5" fill="#4B7BFF">ø</text>
+</svg>
