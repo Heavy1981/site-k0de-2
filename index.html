@@ -964,8 +964,25 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
     <div class="section-badge reveal"><span class="badge-dot"></span> Blog køde</div>
     <h2 class="section-heading reveal">Conteúdo que <span class="text-gradient">gera resultado</span></h2>
     <p class="section-sub reveal">Dicas de IA, automação e presença digital para o seu negócio crescer.</p>
-    <div class="blog-cards reveal" id="homeBlogCards">
-      <!-- posts loaded from Directus -->
+    <div class="blog-cards reveal">
+      <a class="blog-card" href="/blog/post/ia-atendimento-24h">
+        <span class="blog-tag">IA & Automação</span>
+        <h3>Como a IA pode responder seus clientes 24h por dia sem você precisar estar online</h3>
+        <p>Descubra como bots de atendimento inteligentes estão transformando pequenos negócios no Brasil.</p>
+        <div class="blog-card-meta">Leia no blog →</div>
+      </a>
+      <a class="blog-card" href="/blog/post/site-proprio-2025">
+        <span class="blog-tag">Sites Profissionais</span>
+        <h3>Por que todo negócio precisa de um site próprio em 2025 (e não só um Instagram)</h3>
+        <p>Redes sociais mudam regras, algoritmos caem. Seu site é o único ativo digital que é 100% seu.</p>
+        <div class="blog-card-meta">Leia no blog →</div>
+      </a>
+      <a class="blog-card" href="/blog/post/ferramentas-ia-kode">
+        <span class="blog-tag">Novidades Tech</span>
+        <h3>As ferramentas de IA que mais usamos para entregar sites em 7 dias</h3>
+        <p>Bastidores da køde: veja como combinamos IA e processo ágil para cumprir prazos sem comprometer qualidade.</p>
+        <div class="blog-card-meta">Leia no blog →</div>
+      </a>
     </div>
     <a href="/blog" class="btn-ghost reveal" style="margin-top:2.5rem;display:inline-flex;">Ver todos os artigos →</a>
   </div>
@@ -1315,41 +1332,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click'
     </form>
   </div>
 </div>
-
-<script>
-// Blog teaser — Directus Cloud
-;(function() {
-  const DIRECTUS = 'https://SEU_PROJETO.directus.app'
-
-  function imgUrl(id) {
-    return id ? `${DIRECTUS}/assets/${id}?width=480&quality=80` : null
-  }
-
-  function fmtDate(iso) {
-    if (!iso) return ''
-    return new Date(iso).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' })
-  }
-
-  fetch(`${DIRECTUS}/items/posts?filter[status][_eq]=published&sort=-date_created&limit=3&fields=title,slug,cover,excerpt,tag,date_created`)
-    .then(r => r.json())
-    .then(json => {
-      const posts = json.data || []
-      const el = document.getElementById('homeBlogCards')
-      if (!el || !posts.length) return
-      el.innerHTML = posts.map(p => {
-        const img = imgUrl(p.cover)
-        return `<a class="blog-card" href="/blog/post/${p.slug}">
-          ${img ? `<img src="${img}" alt="${p.title}" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:10px;margin-bottom:.75rem" loading="lazy"/>` : ''}
-          <span class="blog-tag">${p.tag || 'Blog'}</span>
-          <h3>${p.title}</h3>
-          ${p.excerpt ? `<p>${p.excerpt}</p>` : ''}
-          <div class="blog-card-meta">${fmtDate(p.date_created)} · Leia no blog →</div>
-        </a>`
-      }).join('')
-    })
-    .catch(() => {})
-})()
-</script>
 
 <a id="waFloat" href="https://wa.me/5511945920335?text=Olá%2C%20quero%20conhecer%20os%20pacotes%20da%20K0DE%21" target="_blank" rel="noopener noreferrer" aria-label="Falar no WhatsApp">
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
