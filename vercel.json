@@ -6,12 +6,11 @@
     { "src": "api/**/*.js", "use": "@vercel/node" }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" },
     { "src": "/blog/post/(.*)", "dest": "/blog/post.html" },
     { "src": "/blog/admin/dashboard", "dest": "/blog/admin/dashboard.html" },
     { "src": "/blog/admin/editor(.*)", "dest": "/blog/admin/editor.html" },
     { "src": "/blog/admin", "dest": "/blog/admin/index.html" },
     { "src": "/blog", "dest": "/blog/index.html" },
-    { "src": "/(.*)", "dest": "/index.html" }
+    { "src": "/((?!api/).*)", "dest": "/index.html" }
   ]
 }
