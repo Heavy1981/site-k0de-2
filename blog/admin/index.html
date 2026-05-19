@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>køde Blog — Admin</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a1628'/%3E%3Ctext x='3.5' y='22.5' font-family='Space Grotesk,sans-serif' font-weight='800' font-size='16' fill='%23ffffff'%3Ek%3C/text%3E%3Ctext x='12.5' y='22.5' font-family='Space Grotesk,sans-serif' font-weight='800' font-size='16' fill='%234B7BFF'%3E%C3%B8%3C/text%3E%3C/svg%3E"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#4B7BFF;--dark:#020408;--dark-900:#060d14;--dark-800:#0a1628;--text:#f0f4f8;--muted:#8899aa}
+body{background:var(--dark);color:var(--text);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;align-items:center;justify-content:center}
+
+.login-box{width:100%;max-width:400px;padding:2rem;background:var(--dark-800);border:1px solid rgba(255,255,255,.08);border-radius:20px}
+.login-logo{font-family:'Space Grotesk',sans-serif;font-weight:900;font-size:1.6rem;text-align:center;margin-bottom:.5rem}
+.login-logo span{color:var(--blue)}
+.login-sub{text-align:center;color:var(--muted);font-size:.875rem;margin-bottom:2rem}
+
+label{display:block;font-size:.8rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:.5rem}
+input[type=password]{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:var(--text);border-radius:10px;padding:.75rem 1rem;font-size:1rem;font-family:'Inter',sans-serif;transition:border-color .2s}
+input[type=password]:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(75,123,255,.15)}
+
+.btn{width:100%;margin-top:1.25rem;padding:.85rem;background:var(--blue);color:#fff;border:none;border-radius:12px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;transition:all .2s}
+.btn:hover{background:#3a6ae8;transform:scale(1.02)}
+.btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+.error{margin-top:1rem;padding:.75rem 1rem;background:rgba(255,80,80,.1);border:1px solid rgba(255,80,80,.2);border-radius:8px;color:#ff8888;font-size:.875rem;display:none}
+</style>
+</head>
+<body>
+
+<div class="login-box">
+  <div class="login-logo">k<span>ø</span>de</div>
+  <p class="login-sub">Painel do Blog — Acesso Restrito</p>
+
+  <form id="loginForm" onsubmit="doLogin(event)">
+    <label for="pwd">Senha</label>
+    <input type="password" id="pwd" placeholder="••••••••" autofocus autocomplete="current-password"/>
+    <button class="btn" type="submit" id="loginBtn">Entrar</button>
+    <div class="error" id="errorMsg"></div>
+  </form>
+</div>
+
+<script>
+// Redirect if already logged in via cookie
+fetch('/api/admin/verify', { credentials: 'same-origin' })
+  .then(r => { if (r.ok) location.href = '/blog/admin/dashboard' })
+  .catch(() => {})
+
+async function doLogin(e) {
+  e.preventDefault()
+  const pwd = document.getElementById('pwd').value.trim()
+  const btn = document.getElementById('loginBtn')
+  const err = document.getElementById('errorMsg')
+
+  if (!pwd) return
+
+  btn.disabled = true
+  btn.textContent = 'Verificando...'
+  err.style.display = 'none'
+
+  try {
+    const res = await fetch('/api/admin/auth', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: pwd }),
+    })
+    const data = await res.json()
+
+    if (res.ok && data.ok) {
+      location.href = '/blog/admin/dashboard'
+    } else {
+      err.textContent = data.error || 'Senha incorreta'
+      err.style.display = 'block'
+      btn.disabled = false
+      btn.textContent = 'Entrar'
+    }
+  } catch {
+    err.textContent = 'Erro de conexão. Tente novamente.'
+    err.style.display = 'block'
+    btn.disabled = false
+    btn.textContent = 'Entrar'
+  }
+}
+</script>
+</body>
+</html>
