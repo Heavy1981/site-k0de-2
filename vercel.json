@@ -1,11 +1,20 @@
 {
   "version": 2,
-  "rewrites": [
-    { "source": "/blog/post/(.*)", "destination": "/blog/post.html" },
-    { "source": "/blog/admin/dashboard", "destination": "/blog/admin/dashboard.html" },
-    { "source": "/blog/admin/editor(.*)", "destination": "/blog/admin/editor.html" },
-    { "source": "/blog/admin", "destination": "/blog/admin/index.html" },
-    { "source": "/blog", "destination": "/blog/index.html" },
-    { "source": "/:path*", "destination": "/index.html" }
+  "builds": [
+    { "src": "index.html", "use": "@vercel/static" },
+    { "src": "blog/**/*.html", "use": "@vercel/static" },
+    { "src": "api/**/*.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/admin/auth",   "dest": "/api/admin/auth.js" },
+    { "src": "/api/admin/verify", "dest": "/api/admin/verify.js" },
+    { "src": "/api/blog/posts(.*)", "dest": "/api/blog/posts.js" },
+    { "src": "/api/blog/upload",  "dest": "/api/blog/upload.js" },
+    { "src": "/blog/post/(.*)",   "dest": "/blog/post.html" },
+    { "src": "/blog/admin/dashboard", "dest": "/blog/admin/dashboard.html" },
+    { "src": "/blog/admin/editor(.*)", "dest": "/blog/admin/editor.html" },
+    { "src": "/blog/admin",       "dest": "/blog/admin/index.html" },
+    { "src": "/blog",             "dest": "/blog/index.html" },
+    { "src": "/(.*)",             "dest": "/index.html" }
   ]
 }
