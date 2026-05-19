@@ -22,6 +22,10 @@ module.exports = async (req, res) => {
     return res.status(401).json({ error: 'Unauthorized' })
   }
 
+  if (!SUPABASE_URL || !SERVICE_KEY) {
+    return res.status(500).json({ error: 'Supabase env vars not configured' })
+  }
+
   const { filename, contentType, base64 } = req.body || {}
   if (!filename || !base64) return res.status(400).json({ error: 'Missing file data' })
 
