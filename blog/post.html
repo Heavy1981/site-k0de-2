@@ -63,7 +63,12 @@ footer a:hover{color:var(--blue)}
 
 <nav>
   <div class="nav-inner">
-    <a href="/" class="nav-logo">k<span>ø</span>de</a>
+    <div style="display:flex;align-items:center;gap:.75rem">
+      <a href="/" class="nav-logo">k<span>ø</span>de</a>
+      <a href="/blog/admin" title="Admin" style="color:rgba(136,153,170,.35);font-size:.75rem;text-decoration:none;transition:color .2s;line-height:1" onmouseover="this.style.color='#4B7BFF'" onmouseout="this.style.color='rgba(136,153,170,.35)'">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+      </a>
+    </div>
     <ul class="nav-links">
       <li><a href="/#servicos">Serviços</a></li>
       <li><a href="/#automacoes">Automações</a></li>
