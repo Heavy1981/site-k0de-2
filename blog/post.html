@@ -23,7 +23,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(6,13,20,.95);backdrop-filt
 .nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .2s}
 .nav-links a:hover,.nav-links a.active{color:var(--text)}
 
-.back-link{display:inline-flex;align-items:center;gap:.5rem;color:var(--muted);text-decoration:none;font-size:.875rem;padding:2rem 1.5rem 0;max-width:800px;margin:0 auto;display:block}
+.back-link{display:block;color:var(--muted);text-decoration:none;font-size:.875rem;padding:2rem 1.5rem 0;max-width:800px;margin:0 auto}
 .back-link:hover{color:var(--blue)}
 
 article{max-width:720px;margin:0 auto;padding:2rem 1.5rem 5rem}
@@ -48,7 +48,7 @@ article{max-width:720px;margin:0 auto;padding:2rem 1.5rem 5rem}
 .post-content img{max-width:100%;border-radius:10px;margin:1rem 0}
 .post-content strong{color:var(--text)}
 
-.post-footer{margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:gap}
+.post-footer{margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem}
 .post-footer a{color:var(--muted);text-decoration:none;font-size:.875rem}
 .post-footer a:hover{color:var(--blue)}
 
@@ -81,6 +81,10 @@ footer a:hover{color:var(--blue)}
 </footer>
 
 <script>
+// CONFIGURAÇÃO: Substitua pela URL do seu projeto Directus Cloud
+// Ex: https://abc123xyz.directus.app
+const DIRECTUS = 'https://SEU_PROJETO.directus.app'
+
 function formatDate(iso) {
   if (!iso) return ''
   return new Date(iso).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })
@@ -97,10 +101,14 @@ async function loadPost() {
   if (!slug) { location.href = '/blog'; return }
 
   try {
-    const res = await fetch(`/api/blog/posts?slug=${encodeURIComponent(slug)}`)
-    const post = await res.json()
+    const res = await fetch(
+      `${DIRECTUS}/items/posts?filter[slug][_eq]=${encodeURIComponent(slug)}&filter[status][_eq]=published&fields=*&limit=1`
+    )
+    if (!res.ok) throw new Error(res.status)
+    const { data } = await res.json()
+    const post = data && data[0]
 
-    if (!post || !post.id) {
+    if (!post) {
       document.getElementById('app').innerHTML = `
         <div style="text-align:center;padding:5rem 1rem;color:var(--muted)">
           <h2 style="font-family:'Space Grotesk',sans-serif;color:var(--text);margin-bottom:1rem">Post não encontrado</h2>
@@ -110,17 +118,22 @@ async function loadPost() {
     }
 
     document.title = `${post.title} — Blog køde`
+
+    const coverUrl = post.cover
+      ? `${DIRECTUS}/assets/${post.cover}?width=1200&quality=85`
+      : null
+
     document.getElementById('app').innerHTML = `
       <a class="back-link" href="/blog">← Voltar ao blog</a>
       <article>
         ${post.tag ? `<span class="post-tag">${post.tag}</span>` : ''}
         <h1 class="post-title">${post.title}</h1>
         <div class="post-meta">
-          <span>${formatDate(post.published_at)}</span>
+          <span>${formatDate(post.date_created)}</span>
           <span>·</span>
           <span>${readingTime(post.content)} de leitura</span>
         </div>
-        ${post.cover_url ? `<img class="post-cover" src="${post.cover_url}" alt="${post.title}"/>` : ''}
+        ${coverUrl ? `<img class="post-cover" src="${coverUrl}" alt="${post.title}"/>` : ''}
         <div class="post-content">${post.content || ''}</div>
         <div class="post-footer">
           <a href="/blog">← Todos os artigos</a>
