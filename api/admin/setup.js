@@ -1,6 +1,6 @@
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
-const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
-const ADMIN_TOKEN = process.env.BLOG_ADMIN_PASSWORD
+const SUPABASE_URL = (process.env.NEXT_PUBLIC_SUPABASE_URL || '').trim()
+const SERVICE_KEY = (process.env.SUPABASE_SERVICE_ROLE_KEY || '').trim()
+const ADMIN_TOKEN = (process.env.BLOG_ADMIN_PASSWORD || '').trim()
 
 function getCookie(req, name) {
   return Object.fromEntries(
@@ -29,7 +29,9 @@ module.exports = async (req, res) => {
   report.env = {
     hasUrl: !!SUPABASE_URL,
     hasKey: !!SERVICE_KEY,
-    urlPrefix: SUPABASE_URL ? SUPABASE_URL.slice(0, 30) + '...' : null,
+    urlPrefix: SUPABASE_URL ? SUPABASE_URL.slice(0, 45) + '...' : null,
+    urlLength: SUPABASE_URL.length,
+    keyLength: SERVICE_KEY.length,
   }
 
   if (!SUPABASE_URL || !SERVICE_KEY) {
