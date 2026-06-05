@@ -13,6 +13,7 @@ function getCookie(req, name) {
 
 module.exports = async (req, res) => {
   res.setHeader('Content-Type', 'application/json')
+  return res.status(404).json({ error: 'Not found' })
 
   const cookie = getCookie(req, 'blog_admin')
   if (cookie !== ADMIN_TOKEN) {
