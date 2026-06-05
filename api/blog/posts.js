@@ -1,6 +1,11 @@
+const crypto = require('crypto')
 const SUPABASE_URL = (process.env.NEXT_PUBLIC_SUPABASE_URL || '').trim()
 const SERVICE_KEY = (process.env.SUPABASE_SERVICE_ROLE_KEY || '').trim()
 const ADMIN_TOKEN = (process.env.BLOG_ADMIN_PASSWORD || '').trim()
+
+function sessionToken(password) {
+  return crypto.createHmac('sha256', 'kode-session-v1').update(password).digest('hex')
+}
 
 function supabaseHeaders() {
   return {
@@ -24,7 +29,8 @@ function getCookie(req, name) {
 function isAuthorized(req) {
   const auth = req.headers['authorization'] || ''
   const cookie = getCookie(req, 'blog_admin')
-  return auth === `Bearer ${ADMIN_TOKEN}` || cookie === ADMIN_TOKEN
+  const token = sessionToken(ADMIN_TOKEN)
+  return auth === `Bearer ${ADMIN_TOKEN}` || cookie === token
 }
 
 module.exports = async (req, res) => {

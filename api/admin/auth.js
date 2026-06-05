@@ -1,15 +1,22 @@
-const ADMIN_PASSWORD = process.env.BLOG_ADMIN_PASSWORD
+const crypto = require('crypto')
+const ADMIN_PASSWORD = (process.env.BLOG_ADMIN_PASSWORD || '').trim()
 const SEVEN_DAYS = 60 * 60 * 24 * 7
 
-function setCookie(res, value) {
+function sessionToken(password) {
+  return crypto.createHmac('sha256', 'kode-session-v1').update(password).digest('hex')
+}
+
+function setCookie(res, token) {
   res.setHeader('Set-Cookie',
-    `blog_admin=${value}; HttpOnly; Secure; SameSite=Strict; Max-Age=${SEVEN_DAYS}; Path=/`)
+    `blog_admin=${token}; HttpOnly; Secure; SameSite=Strict; Max-Age=${SEVEN_DAYS}; Path=/`)
 }
 
 function clearCookie(res) {
   res.setHeader('Set-Cookie',
     'blog_admin=; HttpOnly; Secure; SameSite=Strict; Max-Age=0; Path=/')
 }
+
+const delay = ms => new Promise(r => setTimeout(r, ms))
 
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', 'same-origin')
@@ -18,7 +25,6 @@ module.exports = async (req, res) => {
 
   if (req.method === 'OPTIONS') return res.status(200).end()
 
-  // DELETE = logout
   if (req.method === 'DELETE') {
     clearCookie(res)
     return res.status(200).json({ ok: true })
@@ -32,10 +38,14 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: 'Missing credentials' })
   }
 
-  if (password !== ADMIN_PASSWORD) {
+  // Constant-time delay on every attempt to slow brute force
+  await delay(800)
+
+  if (!crypto.timingSafeEqual(Buffer.from(password), Buffer.from(ADMIN_PASSWORD))) {
+    await delay(1200)
     return res.status(401).json({ error: 'Senha incorreta' })
   }
 
-  setCookie(res, ADMIN_PASSWORD)
+  setCookie(res, sessionToken(ADMIN_PASSWORD))
   res.status(200).json({ ok: true })
 }

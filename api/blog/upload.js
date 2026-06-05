@@ -1,6 +1,11 @@
+const crypto = require('crypto')
 const SUPABASE_URL = (process.env.NEXT_PUBLIC_SUPABASE_URL || '').trim()
 const SERVICE_KEY = (process.env.SUPABASE_SERVICE_ROLE_KEY || '').trim()
 const ADMIN_TOKEN = (process.env.BLOG_ADMIN_PASSWORD || '').trim()
+
+function sessionToken(password) {
+  return crypto.createHmac('sha256', 'kode-session-v1').update(password).digest('hex')
+}
 
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
@@ -18,7 +23,7 @@ module.exports = async (req, res) => {
     })
   )
   const cookie = cookies['blog_admin'] || ''
-  if (auth !== `Bearer ${ADMIN_TOKEN}` && cookie !== ADMIN_TOKEN) {
+  if (auth !== `Bearer ${ADMIN_TOKEN}` && cookie !== sessionToken(ADMIN_TOKEN)) {
     return res.status(401).json({ error: 'Unauthorized' })
   }
 

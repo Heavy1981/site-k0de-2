@@ -6,6 +6,17 @@
     { "src": "api/**/*.js", "use": "@vercel/node" }
   ],
   "routes": [
+    {
+      "src": "/(.*)",
+      "headers": {
+        "X-Frame-Options": "DENY",
+        "X-Content-Type-Options": "nosniff",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+        "Strict-Transport-Security": "max-age=63072000; includeSubDomains"
+      },
+      "continue": true
+    },
     { "src": "/api/admin/auth",   "dest": "/api/admin/auth.js" },
     { "src": "/api/admin/verify", "dest": "/api/admin/verify.js" },
     { "src": "/api/admin/setup",  "dest": "/api/admin/setup.js" },
