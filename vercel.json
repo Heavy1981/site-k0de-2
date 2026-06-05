@@ -8,6 +8,7 @@
   "routes": [
     { "src": "/api/admin/auth",   "dest": "/api/admin/auth.js" },
     { "src": "/api/admin/verify", "dest": "/api/admin/verify.js" },
+    { "src": "/api/admin/setup",  "dest": "/api/admin/setup.js" },
     { "src": "/api/blog/posts(.*)", "dest": "/api/blog/posts.js" },
     { "src": "/api/blog/upload",  "dest": "/api/blog/upload.js" },
     { "src": "/blog/post/(.*)",   "dest": "/blog/post.html" },
