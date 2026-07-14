@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta http-equiv="X-Content-Type-Options" content="nosniff" />
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+<title>Política de Privacidade — køde</title>
+<meta name="description" content="Como a køde coleta, usa e protege seus dados pessoais, em conformidade com a LGPD (Lei 13.709/2018)."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://k0de.com.br/privacidade"/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3CradialGradient id='bg' cx='40%25' cy='35%25' r='70%25'%3E%3Cstop offset='0%25' stop-color='%231a1f2e'/%3E%3Cstop offset='100%25' stop-color='%230d1117'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='7' fill='url(%23bg)'/%3E%3Ctext x='3' y='23' font-family='system-ui,sans-serif' font-weight='800' font-size='17' fill='%23ffffff'%3Ek%3C/text%3E%3Ctext x='13' y='23' font-family='system-ui,sans-serif' font-weight='800' font-size='17' fill='%234B7BFF'%3E%C3%B8%3C/text%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#4B7BFF;--dark:#020408;--dark-900:#060d14;--dark-800:#0a1628;--text:#f0f4f8;--muted:#8899aa}
+html{scroll-behavior:smooth}
+body{background:var(--dark);color:var(--text);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:5px;background:var(--dark-900)}
+::-webkit-scrollbar-thumb{background:rgba(75,123,255,.3);border-radius:3px}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(6,13,20,.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06);padding:0 1.5rem}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{font-family:'Space Grotesk',sans-serif;font-weight:900;font-size:1.4rem;text-decoration:none;color:var(--text)}
+.nav-logo span{color:var(--blue)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+@media(max-width:700px){.nav-links{display:none}}
+
+/* HERO */
+.hero{padding:4.5rem 1.5rem 2rem;text-align:center;max-width:760px;margin:0 auto}
+.hero-label{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:2px;color:var(--blue);background:rgba(75,123,255,.1);border:1px solid rgba(75,123,255,.2);border-radius:20px;padding:4px 14px;margin-bottom:1.5rem}
+.hero h1{font-family:'Space Grotesk',sans-serif;font-weight:900;font-size:clamp(1.9rem,5vw,2.8rem);line-height:1.1;margin-bottom:1rem}
+.hero p{color:var(--muted);font-size:1rem;line-height:1.7}
+.updated{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:#556677;margin-top:1.25rem}
+
+/* DOC */
+.doc{max-width:760px;margin:0 auto;padding:2rem 1.5rem 5rem}
+.doc section{margin-bottom:2.75rem}
+.doc h2{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.25rem;margin-bottom:.9rem;display:flex;align-items:baseline;gap:.6rem}
+.doc h2 .num{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--blue);font-weight:500}
+.doc h3{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1rem;margin:1.5rem 0 .6rem;color:var(--text)}
+.doc p{color:var(--muted);font-size:.95rem;line-height:1.8;margin-bottom:1rem}
+.doc ul{list-style:none;margin:0 0 1rem}
+.doc li{color:var(--muted);font-size:.95rem;line-height:1.8;padding-left:1.4rem;position:relative;margin-bottom:.5rem}
+.doc li::before{content:'';position:absolute;left:0;top:.7em;width:5px;height:5px;border-radius:50%;background:var(--blue);opacity:.6}
+.doc a{color:var(--blue);text-decoration:none}
+.doc a:hover{text-decoration:underline}
+.doc strong{color:var(--text);font-weight:600}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;margin-bottom:1rem;font-size:.88rem}
+.tbl th{text-align:left;font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--text);padding:.7rem .8rem;border-bottom:1px solid rgba(255,255,255,.1);font-size:.82rem}
+.tbl td{color:var(--muted);padding:.7rem .8rem;border-bottom:1px solid rgba(255,255,255,.05);line-height:1.6;vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+.tbl-wrap{overflow-x:auto;border:1px solid rgba(255,255,255,.07);border-radius:12px;background:var(--dark-900);margin-bottom:1rem}
+
+/* CALLOUT */
+.callout{background:var(--dark-800);border:1px solid rgba(75,123,255,.2);border-left:3px solid var(--blue);border-radius:12px;padding:1.25rem 1.4rem;margin-bottom:1rem}
+.callout p{margin-bottom:0}
+.callout p+p{margin-top:.75rem}
+
+/* FOOTER */
+footer{background:var(--dark-900);border-top:1px solid rgba(255,255,255,.05);padding:2rem 1.5rem;text-align:center;color:var(--muted);font-size:.85rem}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover{color:var(--blue)}
+.foot-links{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1rem}
+.foot-copy{color:#334455;font-size:.78rem}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">k<span>ø</span>de</a>
+    <ul class="nav-links">
+      <li><a href="/#pacotes">Sites</a></li>
+      <li><a href="/#automacoes">Automações</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/#contato">Contato</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="hero">
+  <span class="hero-label">Legal</span>
+  <h1>Política de Privacidade</h1>
+  <p>Como a køde coleta, usa, compartilha e protege seus dados pessoais — em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018).</p>
+  <p class="updated">Última atualização: 14 de julho de 2026</p>
+</div>
+
+<div class="doc">
+
+  <section>
+    <h2><span class="num">01</span> Quem somos</h2>
+    <p>A <strong>køde — Serviços em Tecnologia com IA</strong>, sediada em Bragança Paulista, São Paulo, Brasil, é a <strong>controladora</strong> dos dados pessoais tratados neste site, nos termos do art. 5º, VI, da LGPD.</p>
+    <p>Para qualquer assunto relacionado a dados pessoais, incluindo o exercício dos seus direitos, fale conosco:</p>
+    <ul>
+      <li>E-mail: <a href="mailto:k0de.inteligence@gmail.com">k0de.inteligence@gmail.com</a></li>
+      <li>WhatsApp: <a href="https://wa.me/5511945920335" target="_blank" rel="noopener noreferrer">+55 11 94592-0335</a></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="num">02</span> Quais dados coletamos</h2>
+    <p>Coletamos apenas o necessário para atender você. Não vendemos, alugamos nem comercializamos dados pessoais — em nenhuma hipótese.</p>
+
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead>
+          <tr><th>Dado</th><th>Quando coletamos</th><th>Por quê</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Nome</td>
+            <td>Formulário de briefing</td>
+            <td>Identificar você e personalizar o atendimento</td>
+          </tr>
+          <tr>
+            <td>Empresa</td>
+            <td>Formulário de briefing</td>
+            <td>Entender o contexto do projeto e montar a proposta</td>
+          </tr>
+          <tr>
+            <td>WhatsApp</td>
+            <td>Formulário de briefing ou contato direto</td>
+            <td>Responder sua solicitação e dar andamento ao projeto</td>
+          </tr>
+          <tr>
+            <td>E-mail</td>
+            <td>Newsletter ou contato direto</td>
+            <td>Enviar o conteúdo que você pediu e responder mensagens</td>
+          </tr>
+          <tr>
+            <td>Respostas do briefing</td>
+            <td>Formulário de briefing</td>
+            <td>Elaborar o escopo e o orçamento do seu site ou automação</td>
+          </tr>
+          <tr>
+            <td>Dados técnicos de acesso</td>
+            <td>Automaticamente, ao navegar</td>
+            <td>Segurança e funcionamento da hospedagem</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Não coletamos <strong>dados pessoais sensíveis</strong> (origem racial, convicção religiosa, opinião política, dados de saúde, biometria, entre outros, conforme art. 5º, II, da LGPD) e não direcionamos este site a menores de 18 anos.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">03</span> Com que base legal tratamos seus dados</h2>
+    <p>Todo tratamento tem uma hipótese legal do art. 7º da LGPD:</p>
+    <ul>
+      <li><strong>Consentimento</strong> (art. 7º, I) — quando você preenche o formulário de briefing ou assina a newsletter, por ato voluntário seu.</li>
+      <li><strong>Execução de contrato ou procedimentos preliminares</strong> (art. 7º, V) — para elaborar propostas e executar os serviços contratados.</li>
+      <li><strong>Legítimo interesse</strong> (art. 7º, IX) — para segurança do site e prevenção a fraudes, sempre respeitando seus direitos e liberdades.</li>
+      <li><strong>Cumprimento de obrigação legal</strong> (art. 7º, II) — quando a lei exigir a guarda de registros.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="num">04</span> Com quem compartilhamos</h2>
+    <p>Compartilhamos dados apenas com prestadores que viabilizam o funcionamento do site e do atendimento — nunca para publicidade de terceiros:</p>
+
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead>
+          <tr><th>Serviço</th><th>Finalidade</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Vercel</td><td>Hospedagem do site</td></tr>
+          <tr><td>Supabase</td><td>Banco de dados e armazenamento do blog</td></tr>
+          <tr><td>n8n</td><td>Automação do envio e roteamento das mensagens do formulário</td></tr>
+          <tr><td>WhatsApp (Meta)</td><td>Canal de atendimento, quando você opta por falar conosco por lá</td></tr>
+          <tr><td>Telegram</td><td>Canal de atendimento alternativo, por opção sua</td></tr>
+          <tr><td>Google Fonts</td><td>Carregamento das fontes do site</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Alguns desses provedores podem processar dados <strong>fora do Brasil</strong>. Nesses casos, a transferência internacional observa o art. 33 da LGPD, e escolhemos fornecedores que adotam cláusulas e padrões de proteção adequados.</p>
+    <p>Também poderemos compartilhar dados por <strong>determinação legal ou ordem judicial</strong>, ou para exercer direitos em processo, conforme o art. 7º, VI, da LGPD.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">05</span> Cookies e tecnologias semelhantes</h2>
+    <p>Este site <strong>não usa cookies de rastreamento, publicidade ou perfilamento</strong>. Não há pixels de anúncio nem rastreadores de terceiros para marketing.</p>
+    <p>Podemos usar armazenamento local do navegador apenas para funções essenciais — como lembrar preferências de navegação e manter a sessão do painel administrativo do blog. Esses recursos são necessários para o site funcionar e não identificam você para fins comerciais.</p>
+    <p>Você pode bloquear ou apagar esses dados nas configurações do seu navegador a qualquer momento. Isso pode afetar algumas funcionalidades.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">06</span> Por quanto tempo guardamos</h2>
+    <ul>
+      <li><strong>Dados de contato e briefing:</strong> enquanto durar o relacionamento e por até <strong>5 anos</strong> após o último contato, prazo alinhado ao Código Civil para eventual defesa em processo.</li>
+      <li><strong>Newsletter:</strong> até você cancelar a inscrição.</li>
+      <li><strong>Registros de acesso:</strong> por <strong>6 meses</strong>, conforme exige o art. 15 do Marco Civil da Internet (Lei nº 12.965/2014).</li>
+    </ul>
+    <p>Encerrado o prazo ou a finalidade, os dados são eliminados ou anonimizados, salvo quando a lei exigir guarda maior.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">07</span> Seus direitos</h2>
+    <p>O art. 18 da LGPD garante a você, gratuitamente e a qualquer momento, o direito de:</p>
+    <ul>
+      <li>Confirmar se tratamos seus dados e <strong>acessar</strong> esses dados</li>
+      <li><strong>Corrigir</strong> dados incompletos, inexatos ou desatualizados</li>
+      <li>Pedir <strong>anonimização, bloqueio ou eliminação</strong> de dados desnecessários, excessivos ou tratados em desconformidade com a lei</li>
+      <li>Solicitar a <strong>portabilidade</strong> dos dados a outro fornecedor</li>
+      <li><strong>Eliminar</strong> dados tratados com base no seu consentimento</li>
+      <li>Saber com quais entidades <strong>compartilhamos</strong> seus dados</li>
+      <li>Ser informado sobre a possibilidade de <strong>não consentir</strong> e as consequências disso</li>
+      <li><strong>Revogar o consentimento</strong> a qualquer tempo</li>
+      <li><strong>Opor-se</strong> a tratamento feito com base em outra hipótese legal, em caso de descumprimento da LGPD</li>
+    </ul>
+
+    <div class="callout">
+      <p><strong>Como exercer:</strong> escreva para <a href="mailto:k0de.inteligence@gmail.com">k0de.inteligence@gmail.com</a> com o assunto <strong>"LGPD"</strong>, descrevendo seu pedido.</p>
+      <p>Respondemos em até <strong>15 dias</strong>. Podemos pedir uma confirmação de identidade antes de atender, para proteger você contra pedidos fraudulentos.</p>
+    </div>
+
+    <p>Se não ficar satisfeito com nossa resposta, você pode apresentar reclamação à <a href="https://www.gov.br/anpd/pt-br" target="_blank" rel="noopener noreferrer">Autoridade Nacional de Proteção de Dados (ANPD)</a>.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">08</span> Como protegemos seus dados</h2>
+    <p>Adotamos medidas técnicas e administrativas para proteger seus dados contra acessos não autorizados, perda, alteração ou divulgação indevida, incluindo:</p>
+    <ul>
+      <li>Criptografia em trânsito (HTTPS/TLS) em todo o site</li>
+      <li>Cabeçalhos de segurança (HSTS, CSP, X-Frame-Options, X-Content-Type-Options)</li>
+      <li>Controle de acesso ao painel administrativo, com autenticação e proteção contra tentativas repetidas de login</li>
+      <li>Acesso aos dados restrito a quem precisa deles para trabalhar</li>
+    </ul>
+    <p>Nenhum sistema é 100% infalível. Em caso de incidente de segurança com risco relevante aos seus direitos, comunicaremos você e a ANPD, conforme o art. 48 da LGPD.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">09</span> Mudanças nesta política</h2>
+    <p>Podemos atualizar esta política para refletir mudanças na lei ou nos nossos serviços. A data de "última atualização" no topo sempre indicará a versão vigente. Alterações relevantes serão comunicadas pelos canais de contato que você nos forneceu.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">10</span> Fale conosco</h2>
+    <p>Dúvidas sobre esta política ou sobre o tratamento dos seus dados:</p>
+    <ul>
+      <li>E-mail: <a href="mailto:k0de.inteligence@gmail.com">k0de.inteligence@gmail.com</a></li>
+      <li>WhatsApp: <a href="https://wa.me/5511945920335" target="_blank" rel="noopener noreferrer">+55 11 94592-0335</a></li>
+      <li>Local: Bragança Paulista, SP — Brasil</li>
+    </ul>
+  </section>
+
+</div>
+
+<footer>
+  <div class="foot-links">
+    <a href="/">Início</a>
+    <a href="/#pacotes">Sites</a>
+    <a href="/#automacoes">Automações</a>
+    <a href="/blog">Blog</a>
+    <a href="/#contato">Contato</a>
+  </div>
+  <p class="foot-copy">© 2026 køde Serviços em Tecnologia com IA. Todos os direitos reservados.</p>
+</footer>
+
+</body>
+</html>
