@@ -2,6 +2,7 @@
   "version": 2,
   "builds": [
     { "src": "index.html", "use": "@vercel/static" },
+    { "src": "privacidade.html", "use": "@vercel/static" },
     { "src": "blog/**/*.html", "use": "@vercel/static" },
     { "src": "api/**/*.js", "use": "@vercel/node" }
   ],
@@ -27,6 +28,7 @@
     { "src": "/blog/admin/editor(.*)", "dest": "/blog/admin/editor.html" },
     { "src": "/blog/admin",       "dest": "/blog/admin/index.html" },
     { "src": "/blog",             "dest": "/blog/index.html" },
+    { "src": "/privacidade",      "dest": "/privacidade.html" },
     { "src": "/(.*)",             "dest": "/index.html" }
   ]
 }
