@@ -40,6 +40,10 @@ module.exports = async (req, res) => {
 
   if (req.method === 'OPTIONS') return res.status(200).end()
 
+  if (!SUPABASE_URL || !SERVICE_KEY) {
+    return res.status(503).json({ error: 'Blog temporariamente indisponível: banco de dados não configurado.' })
+  }
+
   const base = `${SUPABASE_URL}/rest/v1/posts`
 
   // GET — public: published posts; admin: all posts
@@ -84,12 +88,25 @@ module.exports = async (req, res) => {
       published_at: body.status === 'published' ? new Date().toISOString() : null,
     }
 
-    const r = await fetch(base, {
+    // Insert; if the slug already exists, retry once with a short unique suffix so
+    // saving never fails just because another post shares the same title.
+    let r = await fetch(base, {
       method: 'POST',
       headers: supabaseHeaders(),
       body: JSON.stringify(payload),
     })
+    if (r.status === 409) {
+      payload.slug = `${payload.slug}-${Date.now().toString(36).slice(-4)}`
+      r = await fetch(base, {
+        method: 'POST',
+        headers: supabaseHeaders(),
+        body: JSON.stringify(payload),
+      })
+    }
     const data = await r.json()
+    if (!r.ok) {
+      return res.status(r.status).json({ error: data.message || data.error || 'Erro ao salvar o post' })
+    }
     return res.status(r.status).json(data)
   }
 
@@ -111,6 +128,9 @@ module.exports = async (req, res) => {
       body: JSON.stringify(updates),
     })
     const data = await r.json()
+    if (!r.ok) {
+      return res.status(r.status).json({ error: data.message || data.error || 'Erro ao salvar o post' })
+    }
     return res.status(r.status).json(data)
   }
 

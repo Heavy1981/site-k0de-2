@@ -333,7 +333,7 @@ async function save(status) {
       showToast(status === 'published' ? 'Post publicado! ✓' : 'Rascunho salvo', 'success')
       setTimeout(() => location.href = '/blog/admin/dashboard', 1200)
     } else {
-      const msg = Array.isArray(data) ? data[0]?.message : data?.error || 'Erro ao salvar'
+      const msg = (Array.isArray(data) ? data[0]?.message : (data?.error || data?.message)) || 'Erro ao salvar'
       showToast(msg, 'error')
       draftBtn.disabled = publishBtn.disabled = false
     }
